@@ -4,6 +4,8 @@ let sound;
 let particles = [];
 let street;
 let scrollPos = -30;
+let back;
+let story;
 
 function preload() {
   img = loadImage("assets/jersey-2019-1970s-popular-culture-76p-fashion-stamp.png");
@@ -12,10 +14,12 @@ function preload() {
   bunny = loadImage("assets/bunny.png");
   sound = loadSound("assets/lofi-295209.mp3");
   street = loadImage("assets/Scene.png");
+  back = loadImage("assets/archBorder.png");
+  story = loadImage("assets/bunnyStory.png");
 }
 
 function setup() {
-  const c = createCanvas(750, 370);
+  const c = createCanvas(windowWidth, windowHeight*0.8);
   c.parent('sketch'); 
   // ADD: volume slider hookup
   const vol = document.getElementById('vol');
@@ -69,13 +73,18 @@ class Particle {
 }
 
 function draw() {
-  background(249, 151, 187);
-  image(street, scrollPos, 0, 2300, 300);
-  
+  background(187, 124, 89);
+  fill(187, 124, 89);
+  noStroke();
+  image(street, windowWidth*0.252, windowWidth*0.085, windowWidth+windowWidth*0.5, windowWidth*0.2);
+  rect(windowWidth*0.76, windowWidth*0.05, windowWidth*0.4, windowWidth*0.3);
+  image(back, 0, 0, windowWidth, windowWidth*0.4)
+  image(story, windowWidth*0.052, windowWidth*0.085, windowWidth*0.14, windowWidth*0.28)
+
   stroke(10, 10, 10);
   //floor
   fill(249, 151, 187);
-  rect(0, 500, 1000, 500);
+  rect(windowWidth*0.252, windowWidth*0.27, windowWidth*0.5, windowWidth*0.063);
   // //clothing rack
   // fill(155, 85, 24);
   // rect(280, 110, 180, 5);
@@ -106,13 +115,13 @@ function draw() {
   // rect(105, 25, 120, 60);
 
   //bunny
-  image(bunny, 200, 250, 50, 50);
+  image(bunny, windowWidth/2, windowWidth*0.25, windowWidth*0.05, windowWidth*0.05);
 
   //postage stamp
-  image(img, 160, 230, 30, 30);
-  text("^", 170, 280);
-  text("|", 171.5, 285);
-  text("picking up postage cards makes the bunny recall memories", 120, 300);
+  image(img, windowWidth/2.1, windowWidth*0.25, windowWidth*0.03, windowWidth*0.03);
+  // text("^", 170, 280);
+  // text("|", 171.5, 285);
+  // text("picking up postage cards makes the bunny recall memories", 120, 300);
 
   // //falling stars
   // for(let n=0; n<1; n++){
@@ -136,10 +145,10 @@ function draw() {
   }
 
   //Exercise #2
-  background(233, 204, 204, 50);
-  for (let x = 50; x < width; x += 20) {
-    let x = random(1000);
-    let y = random(180);
+  //background(233, 204, 204, 50);
+  for (let x = windowWidth*0.05; x < width; x += 50) {
+    let x = random(windowWidth*0.43);
+    let y = random(windowWidth*0.15);
 
     a = map(mouseX, 0, 500, 0, 255);
     b = map(mouseY, 0, 180, 0, 255);
@@ -151,7 +160,7 @@ function draw() {
       fill(0, a, b, 15);
     }
     noStroke();
-    circle(x, y, 50);
+    circle(x+windowWidth*0.28, y+windowWidth*0.1, 50);
     pop();
   }
 }
