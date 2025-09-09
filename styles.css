@@ -1,43 +1,92 @@
-html, header, body, footer, musicSlider { margin: 0; }
-
-header {
-  padding: 10px 0;
-  margin: 10px auto;
-  border-radius: 5px; 
-  display: flex; /* enable flex layout */
-  flex-direction: column; /* stack header, content, footer vertically */
+#menu-btn {
+  background: #fff;
+  color: #000;
+  border: 3.5px solid #000;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-size: 1.2rem;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+  width: 15vw;
+  height: 5vw; 
+  max-width: 70px;
+  max-height: 50px;
 }
+#menu-btn:hover {
+  background: #eee;
+}
+html, body { margin: 0; }
 
 body{
-  position: relative;
   font-family: Arial, sans-serif;
-  background-color: #bb7c59;
+  background-color: #323232;
 }
 
-musicSlider {
+ /* musicSlider {
   color: #333;
   text-align: center;
-}
+} */
 
-footer {
-  background-color: #333;
+/* footer {
   font-family: Arial, sans-serif;
   color: white;
   background-attachment: fixed;
   display: flex; 
   min-height: 10vh; 
+} */
+
+#toggle-sound {
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  padding: 0;
+  width: 6vw;
+  height: 6vw; 
+  /* min-width: 32px;
+  min-height: 32px; */
+  max-width: 64px;
+  max-height: 64px;
+  display: absolute;
+  align-items: center;
+  justify-content: center;
 }
 
-.controls {
-/* position: absolute;  */
-top: 0;
-right: windowWidth*0.5; 
-display: inline-flex;
-align-items: center;
-background: rgba(255,255,255,0.75);
-backdrop-filter: blur(4px);
+#toggle-sound img {
+  width: 100%;
+  height: 100%;
+  display: block;
+    object-fit: contain;
 }
-.mainimage{
+  /* Ensure the image inside the button fills the button and is responsive */
+
+.controls {
+  position: absolute;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  backdrop-filter: none;
+  z-index: 10;
+  pointer-events: auto;
+  border: none;
+}
+
+.menuSize {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  backdrop-filter: none;
+  z-index: 10;
+  pointer-events: auto;
+  border: none;
+}
+/* .mainimage{
   display: block;
   margin: 0 auto;
 }
@@ -61,10 +110,4 @@ gap: 12px;
 align-items: center;
 backdrop-filter: blur(4px);
 margin: 10px auto 25px; /* spacing above & below controls */
-}
 
-#sketch {
-  width: 50%;
-  height: auto;
-  background-color: white; /* for testing visibility */
-}

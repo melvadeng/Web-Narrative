@@ -1,36 +1,71 @@
-let img;
-let img1;
+
+let menuScreen = true;
+let introScreen = false;
+let s1 = false;
+let s2 = false;
+let s3 = false;
+let s4 = false;
+let s5 = false;
+let scene1;
+let scene2;
+let scene3;
+let scene4;
+let scene5;
 let sound;
-let particles = [];
-let street;
-let scrollPos = -30;
-let back;
-let story;
+let bunnyRun1;
+let s2object1;
+let bunnyRun;
+let s2found1;
+let overview;
+let s2lantern;
+let intro;
+let scenes;
+let scrollPos = 0;
+const soundButton = document.getElementById('toggle-sound');
+const soundIcon   = soundButton.querySelector('img');
+
+//let scrollPos = -30;
 
 function preload() {
-  img = loadImage("assets/jersey-2019-1970s-popular-culture-76p-fashion-stamp.png");
-  img1 = loadImage("assets/GIrl.png");
-  imgcity = loadImage("assets/cityView.jpg")
-  bunny = loadImage("assets/bunny.png");
+  bunnyRun1 = loadImage("assets/bunnyRun1.png");
+  scene1 = loadImage("assets/scene1.png");
+  scene2 = loadImage("assets/scene2.png");
+  scene3 = loadImage("assets/scene3.png");
+  scene4 = loadImage("assets/scene4.png");
+  scene5 = loadImage("assets/scene5.png");
   sound = loadSound("assets/lofi-295209.mp3");
-  street = loadImage("assets/Scene.png");
-  back = loadImage("assets/archBorder.png");
-  story = loadImage("assets/bunnyStory.png");
+  s2object1 = loadImage("assets/s2object1.png");
+  bunnyRun = loadImage("assets/bunnyRun.png");
+  s2found1 = loadImage("assets/s2found1.png");
+  overview = loadImage("assets/overview.png");
+  s2lantern = loadImage("assets/s2lantern.png");
+  intro = loadImage("assets/intro.png")
+  scenes = loadImage("assets/scenes.png");
+  
 }
 
 function setup() {
-  const c = createCanvas(windowWidth, windowHeight*0.8);
+  const c = createCanvas(windowWidth, windowHeight);
+  function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
   c.parent('sketch'); 
+//  sound.play();
   // ADD: volume slider hookup
-  const vol = document.getElementById('vol');
-  const volVal = document.getElementById('volVal');
-  sound.setVolume(parseFloat(vol.value));
-  volVal.textContent = parseFloat(vol.value).toFixed(2);
+  // const vol = document.getElementById('vol');
+  // const volVal = document.getElementById('volVal');
+  // sound.setVolume(parseFloat(vol.value));
+  // volVal.textContent = parseFloat(vol.value).toFixed(2);
 
-  vol.addEventListener('input', () => {
-  const v = parseFloat(vol.value);
-  sound.setVolume(v);
-  volVal.textContent = v.toFixed(2);
+  // vol.addEventListener('input', () => {
+  // const v = parseFloat(vol.value);
+  // sound.setVolume(v);
+  // volVal.textContent = v.toFixed(2);
+  // });
+  document.getElementById('menu-btn').addEventListener('click', () => {
+  if (menuScreen == false){
+    menuScreen = true;
+    }
   });
 
   // ADD: play/stop button
@@ -38,145 +73,98 @@ function setup() {
   if (!sound.isPlaying()) {
   sound.play();
   sound.setLoop(true);
+  soundIcon.src = 'assets/music.png';
   } else {
   sound.stop();
+  soundIcon.src = 'assets/noM.png';
   }
   });
-  frameRate(5);
-}
-
-let isPurple = true;
-
-class Particle {
-  constructor() {
-    this.x = random(113, 180);
-    this.y = 25;
-    this.vy = random(-2, -5); // random upward velocity
-    this.alpha = 100; // full opacity
-  }
-
-  update() {
-    this.y -= this.vy;
-    this.x -= this.vy;// move the particle upward
-    this.alpha -= 12; // fade out
-  }
-
-  show() {
-    stroke("grey");
-    fill(0, 150, 255, this.alpha);
-    line(this.x, this.y, this.x+3, this.y+3);
-}
-
-  isFinished() {
-    return this.alpha <= 0; // Particle is finished when it's fully transparent
-  }
+  frameRate(30);
 }
 
 function draw() {
-  background(187, 124, 89);
-  fill(187, 124, 89);
-  noStroke();
-  image(street, windowWidth*0.252, windowWidth*0.085, windowWidth+windowWidth*0.5, windowWidth*0.2);
-  rect(windowWidth*0.76, windowWidth*0.05, windowWidth*0.4, windowWidth*0.3);
-  image(back, 0, 0, windowWidth, windowWidth*0.4)
-  image(story, windowWidth*0.052, windowWidth*0.085, windowWidth*0.14, windowWidth*0.28)
+  background(50,50,50);
 
-  stroke(10, 10, 10);
-  //floor
-  fill(249, 151, 187);
-  rect(windowWidth*0.252, windowWidth*0.27, windowWidth*0.5, windowWidth*0.063);
-  // //clothing rack
-  // fill(155, 85, 24);
-  // rect(280, 110, 180, 5);
-  // rect(280, 100, 20, 100);
-  // rect(450, 100, 20, 100);
-  // //clothes
-  // fill(255, 255, 255);
-  // rect(338, 110, 5, 60);
-  // rect(408, 110, 5, 60);
-  // fill(155, 24, 138);
-  // rect(310, 120, 50, 40);
-  // rect(320, 120, 50, 40);
-  // rect(320, 120, 40, 60);
-  // rect(380, 120, 50, 40);
-  // rect(390, 120, 50, 40);
-  // rect(390, 120, 40, 60);
-  // //cashier desk
-  // fill(155, 85, 24);
-  // rect(0, 150, 200, 20);
-  // fill(84, 83, 104);
-  // rect(20, 100, 50, 40);
-  // rect(35, 140, 20, 10);
-  // rect(110, 140, 50, 10);
-  // //window
-  // rect(100, 20, 130, 70);
-  // fill(8, 40, 115, 150);
-  // image(imgcity, 105, 25, 120, 60);
-  // rect(105, 25, 120, 60);
+  if (menuScreen == true){
+    fill(255, 150, 105);
+    rect(0, 0, windowWidth, windowHeight);
+    fill(0, 0, 0);
+    textSize(windowWidth/20);
+    text("Bunny Memories", windowWidth/3, windowWidth/10);
+    image(overview, 0, -50, windowWidth, windowWidth/2);
+  } else if (s1 == true){
+    //scene
+    image(scene1, 0, -50, windowWidth, windowWidth/1.85);
 
-  //bunny
-  image(bunny, windowWidth/2, windowWidth*0.25, windowWidth*0.05, windowWidth*0.05);
+    //bunny
+    image(bunnyRun, 0, -50, windowWidth/1.2, windowWidth/2);
 
-  //postage stamp
-  image(img, windowWidth/2.1, windowWidth*0.25, windowWidth*0.03, windowWidth*0.03);
-  // text("^", 170, 280);
-  // text("|", 171.5, 285);
-  // text("picking up postage cards makes the bunny recall memories", 120, 300);
+    //notesCollected
+    textSize(windowWidth/50);
+    fill(255, 255, 255);
+    text("0/5 Notes Collected", windowWidth/1.25, -50+windowWidth/2.1-windowWidth/45);
+  } else if (s2 == true){
+    image(scene2, 0, -50, windowWidth, windowWidth/2);
+    image(bunnyRun, 0, -50, windowWidth/1.2, windowWidth/2);
+    textSize(windowWidth/50);
+    fill(255, 255, 255);
+    text("0/5 Notes Collected", windowWidth/1.25, -50+windowWidth/2.1-windowWidth/45);
+  } else if (s3 == true){
+    image(scene3, 0, -40, windowWidth, windowWidth/2);
+    image(bunnyRun, 0, -50, windowWidth/1.2, windowWidth/2);
+    textSize(windowWidth/50);
+    fill(255, 255, 255);
+    text("0/5 Notes Collected", windowWidth/1.25, -50+windowWidth/2.1-windowWidth/45);
+  } else if (s4 == true){
+    image(scene4, 0, -25, windowWidth, windowWidth/2);
+    image(bunnyRun, 0, -50, windowWidth/1.2, windowWidth/2);
+    textSize(windowWidth/50);
+    fill(255, 255, 255);
+    text("0/5 Notes Collected", windowWidth/1.25, -50+windowWidth/2.1-windowWidth/45);
+  } else if (s5 == true){
+    image(scene5, 0, -50, windowWidth, windowWidth/1.9);
+    image(bunnyRun, 0, -50, windowWidth/1.2, windowWidth/2);
+    textSize(windowWidth/50);
+    fill(255, 255, 255);
+    text("0/5 Notes Collected", windowWidth/1.25, -50+windowWidth/2.1-windowWidth/45);
+  } else if (introScreen == true){
+    image(intro, windowWidth/4, -50, windowWidth/2, windowWidth/2);
+  } 
+  
+  fill(0, 0, 0);
+  //rect(windowWidth/3.09, -50+windowWidth/2.1-windowWidth/4, windowWidth/6.5, windowWidth/7.4);
 
-  // //falling stars
-  // for(let n=0; n<1; n++){
-  // particles.push(new Particle());
-  // }
+}
 
-  // loop through each particle in reverse order
-  for (let i = particles.length - 1; i >= 0; i--) {
-    particles[i].update(); // update the particle's position
-    particles[i].show(); // display the particle
 
-  // remove the particle from the array if it's finished
-  if (particles[i].isFinished()) {
-      particles.splice(i, 1);
-    }
-  }
-
-  //memory
-  if (mouseX > 160 && mouseX < 190 && mouseY > 230 && mouseY < 260) {
-    image(img1, 500, 80, 200, 200);
-  }
-
-  //Exercise #2
-  //background(233, 204, 204, 50);
-  for (let x = windowWidth*0.05; x < width; x += 50) {
-    let x = random(windowWidth*0.43);
-    let y = random(windowWidth*0.15);
-
-    a = map(mouseX, 0, 500, 0, 255);
-    b = map(mouseY, 0, 180, 0, 255);
-
-    push();
-    if (isPurple) {
-      fill(a, 0, b, 15);
-    } else {
-      fill(0, a, b, 15);
-    }
-    noStroke();
-    circle(x+windowWidth*0.28, y+windowWidth*0.1, 50);
-    pop();
+function mousePressed(){
+  if(menuScreen == true){
+    if((mouseX>(windowWidth/20) && mouseX<(windowWidth/20+windowWidth/11)) && (mouseY>(-50+windowWidth/2.1-windowWidth/4) && mouseY<+(-50+windowWidth/2.1-windowWidth/4+windowWidth/7.4))){
+      introScreen = true;
+      menuScreen = false;
+    } else if((mouseX>(windowWidth/7) && mouseX<(windowWidth/7+windowWidth/5.6)) && (mouseY>(-50+windowWidth/2.1-windowWidth/4) && mouseY<+(-50+windowWidth/2.1-windowWidth/4+windowWidth/7.4))){
+      s1 = true;
+      s2=s3=s4=s5=menuScreen = false;
+    } else if((mouseX>(windowWidth/3.09) && mouseX<(windowWidth/3.09+windowWidth/6.5)) && (mouseY>(-50+windowWidth/2.1-windowWidth/4) && mouseY<+(-50+windowWidth/2.1-windowWidth/4+windowWidth/7.4))){
+      s2 = true;
+      s1=s3=s4=s5=menuScreen = false;
+    } else if((mouseX>(windowWidth/2.08) && mouseX<(windowWidth/2.08+windowWidth/7.2)) && (mouseY>(-50+windowWidth/2.1-windowWidth/4) && mouseY<+(-50+windowWidth/2.1-windowWidth/4+windowWidth/7.4))){
+      s3 = true;
+      s1=s2=s4=s5=menuScreen = false;
+    } else if((mouseX>(windowWidth/1.63) && mouseX<(windowWidth/1.63+windowWidth/7.2)) && (mouseY>(-50+windowWidth/2.1-windowWidth/4) && mouseY<+(-50+windowWidth/2.1-windowWidth/4+windowWidth/7.4))){
+      s4 = true;
+      s1=s2=s3=s5=menuScreen = false;
+    } else if((mouseX>(windowWidth/1.32) && mouseX<(windowWidth/1.32+windowWidth/5.4)) && (mouseY>(-50+windowWidth/2.1-windowWidth/4) && mouseY<+(-50+windowWidth/2.1-windowWidth/4+windowWidth/7.4))){
+      s5 = true;
+      s1=s2=s3=s4=menuScreen = false;
+    } 
   }
 }
 
-// function mousePressed(){
-//   while((mouseX>50 && mouseX<100) && (mouseY>220 && mouseY<270)){
-//     image(img1, 300, 220, 100, 100);
+// function mouseWheel(){
+//   if(sceneTest == true){
+//     if(scrollPos > -windowWidth*4){
+//       scrollPos -= 3;
+//     }
 //   }
 // }
-
-function mousePressed() {
-  isPurple = !isPurple;
-}
-
-//while (scrollPos < -1500) {
-  function mouseWheel(){
-  scrollPos -= 3;
-}
-//}
