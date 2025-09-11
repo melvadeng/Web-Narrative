@@ -1,3 +1,10 @@
+html, body { margin: 0; }
+
+body{
+  font-family: Arial, sans-serif;
+  background-color: #323232;
+}
+
 #menu-btn {
   background: #fff;
   color: #000;
@@ -17,25 +24,6 @@
 #menu-btn:hover {
   background: #eee;
 }
-html, body { margin: 0; }
-
-body{
-  font-family: Arial, sans-serif;
-  background-color: #323232;
-}
-
- /* musicSlider {
-  color: #333;
-  text-align: center;
-} */
-
-/* footer {
-  font-family: Arial, sans-serif;
-  color: white;
-  background-attachment: fixed;
-  display: flex; 
-  min-height: 10vh; 
-} */
 
 #toggle-sound {
   background: none;
@@ -60,7 +48,6 @@ body{
   display: block;
     object-fit: contain;
 }
-  /* Ensure the image inside the button fills the button and is responsive */
 
 .controls {
   position: absolute;
@@ -86,28 +73,4 @@ body{
   pointer-events: auto;
   border: none;
 }
-/* .mainimage{
-  display: block;
-  margin: 0 auto;
-}
-
-.reference{
-  position: relative;
-}
-
-.cornerimage { 
-  position: absolute; 
-  top: 21%; 
-  left: 25.4%;
-} 
-
-.story {
-position: absolute; 
-top: 900px; 
-right: 1205px; 
-display: inline-flex;
-gap: 12px;
-align-items: center;
-backdrop-filter: blur(4px);
-margin: 10px auto 25px; /* spacing above & below controls */
 
