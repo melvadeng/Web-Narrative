@@ -107,8 +107,7 @@ function preload() {
   bunnyRun = loadImage("assets/bunnyRun.png");
   overview = loadImage("assets/sceneoverview.png");
   intro = loadImage("assets/intro.png")
-  scenes = loadImage("assets/scenes.png");
-  
+  scenes = loadImage("assets/scenes.png");  
 }
 
 function setup() {
@@ -261,7 +260,6 @@ function draw() {
     background(50,50,50);
 
     //circles
-    //background(233,204,204, 50);
     for(let x=50; x<windowWidth*1.5; x+=60){
       let randx = random(windowWidth-windowWidth/9);
       let randy = random(180);
@@ -278,13 +276,13 @@ function draw() {
     }
 
     //text
-    textFont('Courier New');
+    textFont('Times New Roman');
     fill(100, 158, 151);
     textSize(windowWidth/20);
-    text("Bunny Memories", windowWidth/3.5, windowWidth/12);
+    text("Bunny Memories", windowWidth/3, windowWidth/12);
     textSize(windowWidth/100);
     text("Instructions: Click on the scene to enter it. \nFind the hidden objects shown below each scene excluding \nthe first page which describes the story.", windowWidth/50, windowWidth/2.5);
-    text("by Melva Deng", windowWidth/3.5, windowWidth/10);
+    text("by Melva Deng", windowWidth/3, windowWidth/10);
     image(overview, 0, -50, windowWidth, windowWidth/2);
   } else if (menuScreen == false && introScreen == false){
     //bunny
@@ -293,7 +291,7 @@ function draw() {
     //notes collected count
     textSize(windowWidth/60);
     fill(255, 255, 255);
-    text(notes + "/5 Notes Collected", windowWidth/1.28, -50+windowWidth/2.1-windowWidth/45);
+    text(notes + "/5 Notes Collected", windowWidth/1.2, -50+windowWidth/2.1-windowWidth/45);
   }
 
   //fill(0, 10);
